@@ -1,4 +1,4 @@
-const Workout = requier("./models/Workout");
+const Workout = require("../models/workout");
 
 // Get all data
 const getWorkouts = async (req, res) => {
@@ -16,7 +16,7 @@ const getWorkouts = async (req, res) => {
 const getWorkout = async (req, res) => {
   try {
     const id = req.params.id;
-    const workouts = await Workout.findById({ _id: id });
+    const workouts = await Workout.findById(id);
 
     res.status(200).json(workouts);
   } catch (err) {
@@ -45,7 +45,7 @@ const addWorkout = async (req, res) => {
 // Update data
 const editWorkout = async (req, res) => {
   try {
-    const allowedEditFields = ["exercise", "sets", "reps", "weight", "date"];
+    const allowedEditFields = ["exercise", "sets", "reps", "weight"];
     const updates = Object.keys(req.body);
 
     const isValidOperation = updates.every((field) =>
@@ -90,11 +90,10 @@ const deleteWorkout = async (req, res) => {
   res.json({ message: "Workout deleted" });
 };
 
-
 module.exports = {
-    getWorkouts,
-    getWorkout,
-    addWorkout,
-    deleteWorkout,
-    editWorkout
-}
+  getWorkouts,
+  getWorkout,
+  addWorkout,
+  deleteWorkout,
+  editWorkout,
+};
